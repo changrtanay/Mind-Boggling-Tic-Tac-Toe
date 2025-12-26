@@ -1,0 +1,113 @@
+* {
+    box-sizing: border-box;
+    font-family: "Inter", system-ui, sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at top, #1f2933, #0b0f14);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    color: #e5e7eb;
+}
+
+.game-container {
+    background: #111827;
+    padding: 24px;
+    border-radius: 22px;
+    width: min(92vw, 360px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+#message {
+    color: #9ca3af;
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+}
+
+/* Responsive board */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.cell {
+    aspect-ratio: 1;
+    background: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 16px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.cell:hover {
+    background: #273244;
+    transform: translateY(-1px);
+}
+
+/* SUBTLE next removal */
+.cell.next-remove {
+    opacity: 0.45;
+}
+
+/* X design */
+.cell.x::before,
+.cell.x::after {
+    content: "";
+    position: absolute;
+    width: 65%;
+    height: 4px;
+    background: #ef4444;
+    top: 50%;
+    left: 50%;
+    border-radius: 2px;
+}
+
+.cell.x::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.cell.x::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* O design */
+.cell.o::before {
+    content: "";
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    border: 4px solid #60a5fa;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Reset button */
+#reset {
+    width: 100%;
+    padding: 12px;
+    background: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 14px;
+    color: #e5e7eb;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+#reset:hover {
+    background: #273244;
+}
