@@ -60,30 +60,44 @@ function removeOldest(player) {
 }
 
 function showWinLine([a, b, c], winner) {
-  const cellSize = cells[0].offsetWidth; // width = height
-  const gap = 12; // grid gap
+  const cellA = cells[a].getBoundingClientRect();
+  const cellC = cells[c].getBoundingClientRect();
+  const boardRect = document
+    .querySelector(".game-board")
+    .getBoundingClientRect();
 
-  const indexToPos = (i) => {
-    const row = Math.floor(i / 3);
-    const col = i % 3;
-    return {
-      x: col * (cellSize + gap) + cellSize / 2,
-      y: row * (cellSize + gap) + cellSize / 2,
-    };
-  };
+  // start and end coordinates relative to board
+  const startX = cellA.left + cellA.width / 2 - boardRect.left;
+  const startY = cellA.top + cellA.height / 2 - boardRect.top;
+  const endX = cellC.left + cellC.width / 2 - boardRect.left;
+  const endY = cellC.top + cellC.height / 2 - boardRect.top;
 
-  const start = indexToPos(a);
-  const end = indexToPos(c);
-
-  const dx = end.x - start.x;
-  const dy = end.y - start.y;
+  // extend line a bit
+  const extend = 20;
+  const dx = endX - startX;
+  const dy = endY - startY;
   const length = Math.hypot(dx, dy);
-  const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+  const ux = dx / length;
+  const uy = dy / length;
 
-  winLine.style.width = `${length}px`;
+  const extendedStartX = startX - ux * extend;
+  const extendedStartY = startY - uy * extend;
+  const extendedEndX = endX + ux * extend;
+  const extendedEndY = endY + uy * extend;
+
+  const newLength = Math.hypot(
+    extendedEndX - extendedStartX,
+    extendedEndY - extendedStartY
+  );
+  const angle =
+    (Math.atan2(extendedEndY - extendedStartY, extendedEndX - extendedStartX) *
+      180) /
+    Math.PI;
+
+  winLine.style.width = `${newLength}px`;
   winLine.style.backgroundColor = winner === "X" ? "#ef4444" : "#60a5fa";
-  winLine.style.transformOrigin = "0 50%"; // start point is anchor
-  winLine.style.transform = `translate(${start.x}px, ${start.y}px) rotate(${angle}deg)`;
+  winLine.style.transformOrigin = "0 50%";
+  winLine.style.transform = `translate(${extendedStartX}px, ${extendedStartY}px) rotate(${angle}deg)`;
   winLine.style.display = "block";
 }
 
