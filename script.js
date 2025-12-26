@@ -6,14 +6,9 @@ const resetBtn = document.getElementById("reset");
 const winLine = document.getElementById("win-line");
 
 const wins = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6],
+  [0,1,2],[3,4,5],[6,7,8],
+  [0,3,6],[1,4,7],[2,5,8],
+  [0,4,8],[2,4,6]
 ];
 
 function init() {
@@ -22,7 +17,7 @@ function init() {
   xPositions = [];
   oPositions = [];
 
-  cells.forEach((cell) => {
+  cells.forEach(cell => {
     cell.className = "cell";
     cell.disabled = false;
   });
@@ -42,14 +37,12 @@ function checkWinner() {
 }
 
 function clearHighlight() {
-  cells.forEach((c) => c.classList.remove("next-remove"));
+  cells.forEach(c => c.classList.remove("next-remove"));
 }
 
 function highlightNext() {
   const queue = currentPlayer === "X" ? xPositions : oPositions;
-  if (queue.length === 3) {
-    cells[queue[0]].classList.add("next-remove");
-  }
+  if (queue.length === 3) cells[queue[0]].classList.add("next-remove");
 }
 
 function removeOldest(player) {
@@ -59,45 +52,35 @@ function removeOldest(player) {
   cells[index].className = "cell";
 }
 
-function showWinLine([a, b, c], winner) {
-  const cellA = cells[a].getBoundingClientRect();
-  const cellC = cells[c].getBoundingClientRect();
-  const boardRect = document
-    .querySelector(".game-board")
-    .getBoundingClientRect();
+function showWinLine([a,b,c], winner) {
+  const cellSize = cells[0].offsetWidth;
+  const gap = 12;
 
-  // start and end coordinates relative to board
-  const startX = cellA.left + cellA.width / 2 - boardRect.left;
-  const startY = cellA.top + cellA.height / 2 - boardRect.top;
-  const endX = cellC.left + cellC.width / 2 - boardRect.left;
-  const endY = cellC.top + cellC.height / 2 - boardRect.top;
+  const indexToPos = i => {
+    const row = Math.floor(i/3);
+    const col = i % 3;
+    return {
+      x: col*(cellSize+gap) + cellSize/2,
+      y: row*(cellSize+gap) + cellSize/2
+    };
+  };
 
-  // extend line a bit
-  const extend = 20;
-  const dx = endX - startX;
-  const dy = endY - startY;
-  const length = Math.hypot(dx, dy);
-  const ux = dx / length;
-  const uy = dy / length;
+  const start = indexToPos(a);
+  const end = indexToPos(c);
 
-  const extendedStartX = startX - ux * extend;
-  const extendedStartY = startY - uy * extend;
-  const extendedEndX = endX + ux * extend;
-  const extendedEndY = endY + uy * extend;
+  // Extend line 15px beyond both ends
+  const dx = end.x - start.x;
+  const dy = end.y - start.y;
+  const angle = Math.atan2(dy, dx);
+  const length = Math.hypot(dx, dy) + 30; // 15px each side
 
-  const newLength = Math.hypot(
-    extendedEndX - extendedStartX,
-    extendedEndY - extendedStartY
-  );
-  const angle =
-    (Math.atan2(extendedEndY - extendedStartY, extendedEndX - extendedStartX) *
-      180) /
-    Math.PI;
+  const startX = start.x - 15 * Math.cos(angle);
+  const startY = start.y - 15 * Math.sin(angle);
 
-  winLine.style.width = `${newLength}px`;
+  winLine.style.width = `${length}px`;
   winLine.style.backgroundColor = winner === "X" ? "#ef4444" : "#60a5fa";
   winLine.style.transformOrigin = "0 50%";
-  winLine.style.transform = `translate(${extendedStartX}px, ${extendedStartY}px) rotate(${angle}deg)`;
+  winLine.style.transform = `translate(${startX}px, ${startY}px) rotate(${angle*180/Math.PI}deg)`;
   winLine.style.display = "block";
 }
 
@@ -106,11 +89,11 @@ function play(index) {
 
   clearHighlight();
 
-  if (currentPlayer === "X") {
-    if (xPositions.length === 3) removeOldest("X");
+  if(currentPlayer === "X") {
+    if(xPositions.length === 3) removeOldest("X");
     xPositions.push(index);
   } else {
-    if (oPositions.length === 3) removeOldest("O");
+    if(oPositions.length === 3) removeOldest("O");
     oPositions.push(index);
   }
 
@@ -118,24 +101,20 @@ function play(index) {
   cells[index].classList.add(currentPlayer.toLowerCase());
 
   const result = checkWinner();
-  if (result) {
-    const { winner, combo } = result;
+  if(result) {
+    const {winner, combo} = result;
     message.textContent = `${winner} wins`;
-    cells.forEach((c) => (c.disabled = true));
-    showWinLine(combo, winner); // pass winner
+    cells.forEach(c=>c.disabled=true);
+    showWinLine(combo, winner);
     return;
   }
 
   currentPlayer = currentPlayer === "X" ? "O" : "X";
   message.textContent = `Player ${currentPlayer}'s turn`;
-
   highlightNext();
 }
 
-cells.forEach((cell) => {
-  cell.addEventListener("click", () => play(+cell.dataset.id));
-});
-
+cells.forEach(cell => cell.addEventListener("click", ()=>play(+cell.dataset.id)));
 resetBtn.addEventListener("click", init);
 
 init();
