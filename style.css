@@ -28,6 +28,30 @@ h1 {
     font-weight: 600;
 }
 
+h1.title {
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.1;
+    font-size: 1.8rem; /* default for desktop */
+}
+
+/* Color each part */
+h1.title .cross {
+    color: #ef4444; /* red for X */
+}
+
+h1.title .circle {
+    color: #60a5fa; /* blue for O */
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 400px) {
+    h1.title {
+        font-size: 1.4rem; /* smaller on mobile */
+        line-height: 1.15;
+    }
+}
+
 #message {
     color: #9ca3af;
     margin-bottom: 16px;
