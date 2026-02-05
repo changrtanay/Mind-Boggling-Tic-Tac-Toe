@@ -1,35 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google verification -->
   <meta name="google-site-verification" content="B0vbB2vHlalyWRxSv1xoYOn9Dh9jnVB8BWRJSI2YATE" />
+
+  <!-- Basic meta -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tic-Tac-Toe</title>
+
+  <!-- SEO title & description -->
+  <title>Mind-Boggling Tic Tac Toe – Play the 3-Mark Strategy Game Online</title>
+  <meta name="description" content="Play Mind-Boggling Tic Tac Toe online. A strategic twist on the classic Tic Tac Toe game where each player can only have 3 marks at a time. Free browser game, no download required.">
+  <meta name="keywords" content="Tic Tac Toe bolt, Infinite tic tac toe, tic tac toe, tic tac toe game, strategy tic tac toe, mind boggling tic tac toe, browser game, free online game">
+  <meta name="author" content="Tanay Changoiwala">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Mind-Boggling Tic Tac Toe">
+  <meta property="og:description" content="A strategic twist on the classic Tic Tac Toe game. Only 3 marks allowed at a time.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://changrtanay.github.io/Mind-Boggling-Tic-Tac-Toe/">
+
+  <!-- Schema.org Game markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Mind-Boggling Tic Tac Toe",
+    "description": "A strategic twist on Tic Tac Toe where players can only have three marks on the board at a time.",
+    "genre": ["Board Game", "Strategy Game"],
+    "operatingSystem": "Web",
+    "applicationCategory": "Game",
+    "url": "https://changrtanay.github.io/Mind-Boggling-Tic-Tac-Toe/"
+  }
+  </script>
+
+  <!-- Styles & assets -->
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
 </head>
+
 <body>
-  <div class="game-container">
-    <h1>Tic-Tac-Toe</h1>
+  <main class="game-container">
+    <h1>Mind-Boggling Tic Tac Toe</h1>
     <p id="message">Player X's turn</p>
 
     <div class="game-board">
       <div class="win-line" id="win-line"></div>
-      <button class="cell" data-id="0"></button>
-      <button class="cell" data-id="1"></button>
-      <button class="cell" data-id="2"></button>
-      <button class="cell" data-id="3"></button>
-      <button class="cell" data-id="4"></button>
-      <button class="cell" data-id="5"></button>
-      <button class="cell" data-id="6"></button>
-      <button class="cell" data-id="7"></button>
-      <button class="cell" data-id="8"></button>
+      <button class="cell" data-id="0" aria-label="Tic Tac Toe cell 1"></button>
+      <button class="cell" data-id="1" aria-label="Tic Tac Toe cell 2"></button>
+      <button class="cell" data-id="2" aria-label="Tic Tac Toe cell 3"></button>
+      <button class="cell" data-id="3" aria-label="Tic Tac Toe cell 4"></button>
+      <button class="cell" data-id="4" aria-label="Tic Tac Toe cell 5"></button>
+      <button class="cell" data-id="5" aria-label="Tic Tac Toe cell 6"></button>
+      <button class="cell" data-id="6" aria-label="Tic Tac Toe cell 7"></button>
+      <button class="cell" data-id="7" aria-label="Tic Tac Toe cell 8"></button>
+      <button class="cell" data-id="8" aria-label="Tic Tac Toe cell 9"></button>
     </div>
 
     <button id="reset">Reset Game</button>
-  </div>
+  </main>
 
-  <script src="script.js"></script>
+  <!-- Hidden SEO content (no UI impact) -->
+  <section style="display:none;">
+    <h2>Mind-Boggling Tic Tac Toe</h2>
+    <p>
+      Mind-Boggling Tic Tac Toe is a unique variation of the classic Tic Tac Toe game.
+      Each player can only have three marks on the board at a time. When a fourth move
+      is made, the oldest mark is removed automatically, adding a strategic layer.
+    </p>
+    <p>
+      This free browser-based game is built using HTML, CSS, and JavaScript and works
+      on both desktop and mobile devices.
+    </p>
+  </section>
+
+  <!-- No-JS fallback -->
+  <noscript>
+    <h2>Play Mind-Boggling Tic Tac Toe</h2>
+    <p>
+      This is a browser-based Tic Tac Toe game with a strategic twist.
+      Each player may only have three marks on the board at a time.
+      Please enable JavaScript to play the game.
+    </p>
+  </noscript>
+
+  <!-- Deferred JS for performance -->
+  <script src="script.js" defer></script>
 </body>
 </html>
