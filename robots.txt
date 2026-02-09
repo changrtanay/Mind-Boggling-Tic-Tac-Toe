@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://changrtanay.github.io/Mind-Boggling-Tic-Tac-Toe/sitemap.xml
