@@ -5,6 +5,9 @@ body {
   min-height: 100vh;
   margin: 0;
   color: #e5e7eb;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .seo-content {
@@ -17,6 +20,7 @@ body {
 
 /* Game container */
 .game-container {
+  flex: 1;
   background: #111827;
   padding: 24px;
   border-radius: 22px;
