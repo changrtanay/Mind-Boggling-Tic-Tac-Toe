@@ -7,6 +7,14 @@ body {
   color: #e5e7eb;
 }
 
+.seo-content {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 /* Game container */
 .game-container {
   background: #111827;
